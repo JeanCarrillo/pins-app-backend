@@ -1,6 +1,6 @@
 # Pins app backend
 
-[Front end here](https://github.com/JeanCarrillo/pins-app)
+[Front-end here](https://github.com/JeanCarrillo/pins-app)
 
 Node + Express + Typescript + MongoDB (mongoose)
 JWT authentication
