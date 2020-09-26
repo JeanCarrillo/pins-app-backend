@@ -2,10 +2,10 @@
 
 [Front-end here](https://github.com/JeanCarrillo/pins-app)
 
-Node + Express + Typescript + MongoDB (mongoose)
-JWT authentication
-Multer to save uploaded static assets
-Stripe to handle pay requests
+- Node + Express + Typescript + MongoDB (mongoose)
+- JWT authentication
+- Multer to save uploaded static assets
+- Stripe to handle pay requests
 
 ##### Run :
 
