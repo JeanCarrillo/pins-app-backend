@@ -38,21 +38,20 @@ export const createPin = async (
     const pointsToRemove = Math.floor(duration);
 
     const user = await usersService.getUser(userId);
-    if (user.get('points') < pointsToRemove)
+    const userPoints = user.get('points');
+    if (userPoints < pointsToRemove || userPoints - pointsToRemove < 0)
       return res.status(403).json({ message: 'Not enough points' });
 
-    const sDate = new Date(startDate);
-    const endDate = new Date(
-      sDate.setHours(sDate.getHours() + duration),
-    ).toUTCString();
+    const sDate = new Date(startDate).getTime();
+    const endDate = sDate + Math.floor(duration * 1000 * 60 * 60);
 
     const createdPin = await pinsService.createPin({
       title,
       description,
       lat,
       lng,
-      startDate: sDate.toUTCString(),
-      endDate,
+      startDate: new Date(startDate).toISOString(),
+      endDate: new Date(endDate).toISOString(),
       filename,
     });
 
