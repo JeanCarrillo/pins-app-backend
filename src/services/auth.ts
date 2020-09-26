@@ -1,10 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { Document } from 'mongoose';
+import { UserDocument } from '../types/interfaces';
 import User from '../models/User';
-
-interface UserDocument extends Document {
-  validatePassword(pw: string): boolean;
-}
 
 export const login = async ({
   username,
@@ -33,20 +30,21 @@ export const login = async ({
       }),
     };
   } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
+    throw new Error('Error during login: invalid credentials');
   }
 };
 
-export const signup = async (user: {
+export const signup = async ({
+  username,
+  password,
+}: {
   username: string;
   password: string;
 }): Promise<Document> => {
   try {
-    const newUser = new User(user);
+    const newUser = new User({ username, password });
     return await newUser.save();
   } catch (error) {
-    console.log({ error });
     throw new Error('Error creating user');
   }
 };

@@ -1,14 +1,6 @@
 import Pin from '../models/Pin';
 import { Document } from 'mongoose';
 
-// export const getPin = async (id: string): Promise<Document> => {
-//   try {
-//     return await Pin.findById(id);
-//   } catch (error) {
-//     throw new Error('Error getting pin');
-//   }
-// };
-
 export const getPins = async ({
   lng,
   lat,
@@ -63,25 +55,6 @@ export const createPin = async ({
       },
     }).save();
   } catch (error) {
-    console.log(error);
     throw new Error('Error creating Pin');
   }
 };
-
-// export const updatePin = async (): Promise<null> => {
-//   try {
-//     return null;
-//   } catch (error) {
-//     throw new Error('Error updating Pin');
-//   }
-// };
-
-// export const deletePin = async (
-//   id: string,
-// ): Promise<{ deletedCount?: number }> => {
-//   try {
-//     return Pin.deleteOne({ _id: id });
-//   } catch (error) {
-//     throw new Error('Error deleting Pin');
-//   }
-// };

@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
 import './db';
-import authMiddleware from './middlewares/auth';
+import { authMiddleware } from './middlewares/auth';
 import { authRoutes, checkoutRoutes, usersRoutes, pinsRoutes } from './routes';
 
 const app: express.Application = express();

@@ -10,16 +10,16 @@ export const getPins = async (
     const { coords } = req.query;
     if (coords && typeof coords === 'string') {
       const [lng, lat] = coords.split(',');
-      const todos = await pinsService.getPins({
+      const pins = await pinsService.getPins({
         lng: Number(lng),
         lat: Number(lat),
       });
-      return res.json({ data: todos });
+      return res.json({ data: pins });
     }
-    const todos = await pinsService.getPins({ lng: null, lat: null });
-    return res.json({ data: todos });
-  } catch ({ message }) {
-    return res.status(500).json({ message });
+    const pins = await pinsService.getPins({ lng: null, lat: null });
+    return res.json({ data: pins });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error getting pins' });
   }
 };
 
@@ -61,34 +61,6 @@ export const createPin = async (
       data: createdPin,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: 'Error creating pin' });
   }
 };
-
-// export const updatePin = async (
-//   req: RequestWithUserId,
-//   res: Response,
-// ): Promise<Response> => {
-//   try {
-//     // const { id } = req.params;
-//     // const { task, done } = req.body;
-//     const updatedPin = await pinsService.updatePin();
-//     return res.json({ data: updatedPin });
-//   } catch ({ message }) {
-//     return res.status(500).json({ message });
-//   }
-// };
-
-// export const deletePin = async (
-//   req: RequestWithUserId,
-//   res: Response,
-// ): Promise<Response> => {
-//   try {
-//     const { id } = req.params;
-//     await pinsService.deletePin(id);
-//     return res.status(200).json({ message: 'OK' });
-//   } catch ({ message }) {
-//     return res.status(500).json({ message });
-//   }
-// };

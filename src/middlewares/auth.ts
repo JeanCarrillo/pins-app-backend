@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 import { JwtTokenInterface, RequestWithUserId } from '../types/interfaces';
 
-export default (
+export const authMiddleware = (
   req: RequestWithUserId,
   res: Response,
   next: NextFunction,
@@ -16,7 +16,6 @@ export default (
     req.userId = userId;
     return next();
   } catch (error) {
-    console.log(error);
     return res.status(403).json({
       message: 'Not authenticated',
     });

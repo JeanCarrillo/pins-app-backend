@@ -44,8 +44,8 @@ export const checkout = async (
     return res.status(201).json({
       data: invoice,
     });
-  } catch ({ message }) {
-    console.log(message);
-    return res.status(500).json({ message });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Error during checkout' });
   }
 };

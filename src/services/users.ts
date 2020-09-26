@@ -1,21 +1,17 @@
 import User from '../models/User';
 import { Document } from 'mongoose';
 
-// export const getUsers = async (): Promise<Document[]> => {
-//   try {
-//     return await User.find();
-//   } catch (error) {
-//     throw new Error('Error getting users');
-//   }
-// };
-
 export const getUser = async (id: string): Promise<Document> => {
   try {
-    return User.findById({ _id: id }).populate('invoices');
+    return await User.findById({ _id: id }).populate('invoices');
   } catch (error) {
     throw new Error('Error getting user');
   }
 };
+
+export const getUserWithUsername = async (
+  username: string,
+): Promise<Document> => await User.findOne({ username });
 
 export const addPinToUser = async (
   id: string,
@@ -48,13 +44,3 @@ export const addInvoiceToUser = async (
     throw new Error('Error creating user invoice');
   }
 };
-
-// export const deleteUser = async (
-//   id: string,
-// ): Promise<{ deletedCount?: number }> => {
-//   try {
-//     return User.deleteOne({ _id: id });
-//   } catch (error) {
-//     throw new Error('Error deleting user');
-//   }
-// };

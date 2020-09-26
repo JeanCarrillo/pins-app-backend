@@ -18,7 +18,6 @@ export const createInvoice = async ({
       receipt: charge.receipt_url,
     }).save();
   } catch (error) {
-    console.log(error);
     throw new Error('Error creating invoice' + error.message);
   }
 };
