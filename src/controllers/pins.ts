@@ -7,7 +7,16 @@ export const getPins = async (
   res: Response,
 ): Promise<Response> => {
   try {
-    const todos = await pinsService.getPins();
+    const { coords } = req.query;
+    if (coords && typeof coords === 'string') {
+      const [lng, lat] = coords.split(',');
+      const todos = await pinsService.getPins({
+        lng: Number(lng),
+        lat: Number(lat),
+      });
+      return res.json({ data: todos });
+    }
+    const todos = await pinsService.getPins({ lng: null, lat: null });
     return res.json({ data: todos });
   } catch ({ message }) {
     return res.status(500).json({ message });

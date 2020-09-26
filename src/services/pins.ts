@@ -9,15 +9,21 @@ import { Document } from 'mongoose';
 //   }
 // };
 
-export const getPins = async (): Promise<Document[]> => {
+export const getPins = async ({
+  lng,
+  lat,
+}: {
+  lng?: number;
+  lat?: number;
+}): Promise<Document[]> => {
   try {
     return await Pin.find({
       location: {
         $nearSphere: {
-          $maxDistance: 10000,
+          $maxDistance: 100000,
           $geometry: {
             type: 'Point',
-            coordinates: [4.79, 45.75],
+            coordinates: [lng || 4.79, lat || 45.75],
           },
         },
       },
