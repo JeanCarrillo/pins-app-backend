@@ -2,6 +2,10 @@ import * as jwt from 'jsonwebtoken';
 import { Document } from 'mongoose';
 import User from '../models/User';
 
+interface UserDocument extends Document {
+  validatePassword(pw: string): boolean;
+}
+
 export const login = async ({
   username,
   password,
@@ -13,11 +17,11 @@ export const login = async ({
   token: string;
 }> => {
   try {
-    const user = await User.findOne({ username });
+    const user = (await User.findOne({ username })) as UserDocument;
     // user not found
     if (!user) throw new Error('Error during login: invalid credentials');
 
-    const valid = await user.schema.statics.validatePassword(password);
+    const valid = await user.validatePassword(password);
 
     // invalid password
     if (!valid) throw new Error('Error during login: invalid credentials');

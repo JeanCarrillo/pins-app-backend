@@ -20,12 +20,14 @@ export const signup = async (
   res: Response,
 ): Promise<Response> => {
   try {
-    const { username } = req.body;
+    const { username, password } = req.body;
+    if (!username || !password)
+      return res.status(403).json({ message: 'Invalid request' });
     if (username.length < 4)
       return res
         .status(403)
         .json({ message: 'Username should be at least 4 characters' });
-    const createdUser = await authService.signup({ ...req.body });
+    const createdUser = await authService.signup({ username, password });
     return res.json({ data: createdUser });
   } catch (error) {
     return res.status(500).json({
